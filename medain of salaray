@@ -42,3 +42,15 @@ Output:
 3.as if there is odd row then middle is median
 4.as if even row then is is two median salary
 
+WITH cte as(
+SELECT id,company,salary
+ROW_NUM() OVER(PARTITION BY comapnay ORDER BY Salary DESC) AS rnk,
+COUNT(ID) OVER(PARTATION BY company) as count
+FROM Employee)
+
+SELECT id,company,salary
+FROM t
+WHERE rnk>=count/2 AND rank<=count/2+1
+
+
+
